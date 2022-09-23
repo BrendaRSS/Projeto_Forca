@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+}
+
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    padding-top: 20px;
+    padding-left: 130px;
+    padding-right: 130px;
+    padding-bottom: 50px;
+}
+
+.imagem-e-botao {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.imagem img {
+    width: 350px;
+}
+
+.botao-escolher {
+    width: 600px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.letras{
+    font-size: 45px;
+}
+
+.escolher-palavra {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(27, 145, 27);
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.teclado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.teclado button {
+    width: 50px;
+    margin-left: 15px;
+}
+
+.botoes {
+    cursor: pointer;
+    border-width: 0.5px;
+    border-color: rgb(124, 124, 124);
+    border-radius: 5px;
+    padding: 15px 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(207, 202, 202);
+    color: rgb(124, 124, 124);
+    font-weight: bold;
+}
+
+.chutar-palavra {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.input-chutar{
+    margin-left: 10px;
+    width: 400px;
+    height: 35px;
+}
+
+.botao-chutar {
+    cursor: pointer;
+    border-width: 0.5px;
+    border-color: rgb(124, 124, 124);
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: rgb(207, 202, 202);
+    color: rgb(124, 124, 124);
+    font-weight: bold;
+}
