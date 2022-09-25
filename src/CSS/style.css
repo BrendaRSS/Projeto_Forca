@@ -65,16 +65,28 @@
     margin-left: 15px;
 }
 
-.botoes {
-    cursor: pointer;
-    border-width: 0.5px;
-    border-color: rgb(124, 124, 124);
+.botoes:disabled {
+    border:none;
     border-radius: 5px;
     padding: 15px 15px;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: rgb(207, 202, 202);
     color: rgb(124, 124, 124);
+    font-weight: bold;
+}
+
+.botoes:enabled{
+    cursor: pointer;
+    border-width: 0.5px;
+    border-color: rgb(58 185 195);
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px 2px rgba(158, 158, 158, 0.71);
+    padding: 15px 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(52, 176, 214);
+    color: rgb(3, 66, 126);
     font-weight: bold;
 }
 
@@ -92,14 +104,25 @@
     height: 35px;
 }
 
-.botao-chutar {
-    cursor: pointer;
-    border-width: 0.5px;
-    border-color: rgb(124, 124, 124);
+.botao-chutar:disabled {
+    border:none;
     border-radius: 5px;
     padding: 10px 20px;
     margin-left: 10px;
     background-color: rgb(207, 202, 202);
     color: rgb(124, 124, 124);
+    font-weight: bold;
+}
+
+.botao-chutar:enabled {
+    cursor: pointer;
+    border-width: 0.5px;
+    border-color: rgb(58 185 195);
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px 2px rgba(158, 158, 158, 0.71);
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: rgb(52, 176, 214);
+    color: rgb(3, 66, 126);
     font-weight: bold;
 }
