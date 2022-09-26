@@ -9,6 +9,7 @@ import forca6 from "./image/forca6.png"
 import { useState } from "react"
 
 export default function App() {
+    const [letrasClicadas, setLetrasClicadas]=useState([])
     const [imagem, setImagem]=useState(forca0)
     const [contador, setContador]=useState(0)
     const [desabilitado, setDesabilitado] = useState(true)
@@ -18,6 +19,7 @@ export default function App() {
     const [input, setInput] = useState("")
     let arrayImagens= [forca0,forca1, forca3, forca4, forca5, forca6]
     let palavraSendoPreenchida= [...palavraRenderizada]
+    let desabilitandoLetrasAlfabeto= true
 
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
         "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -35,6 +37,8 @@ export default function App() {
     }
 
     function compararLetra(letra) {
+        let arrayLetras=[...letrasClicadas,letra]
+        setLetrasClicadas(arrayLetras)
         if(palavraSorteada.includes(letra)){
             for(let i=0; i<palavraSorteada.length; i++){
                 if(palavraSorteada[i]===letra){
@@ -54,6 +58,7 @@ export default function App() {
             setImagem(imagemATual)
         }
     }
+    console.log(letrasClicadas)
 
     function chutarPlavra() {
         if (palavraCoparacao === input) {
@@ -88,7 +93,7 @@ export default function App() {
                 {alfabeto.map((l) => (
                     <button
                         className="botoes"
-                        disabled={desabilitado}
+                        disabled={(letrasClicadas.includes(l) ? desabilitandoLetrasAlfabeto:desabilitado)}
                         onClick={
                             () => compararLetra(l)} >{l}</button>))}
             </div>
