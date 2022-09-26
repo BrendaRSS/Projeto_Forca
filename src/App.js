@@ -19,7 +19,7 @@ export default function App() {
     const [input, setInput] = useState("")
     let arrayImagens= [forca0,forca1, forca3, forca4, forca5, forca6]
     let palavraSendoPreenchida= [...palavraRenderizada]
-    let desabilitandoLetrasAlfabeto= true
+    const desabilitandoLetrasAlfabeto= true
 
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
         "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -34,6 +34,10 @@ export default function App() {
         setPalavraSorteada(arrayPalavraSorteada)
         let novoArray = arrayPalavraSorteada.map(() => "_")
         setPalavraRenderizada(novoArray)
+        let arrayVazio=[]
+        setLetrasClicadas(arrayVazio)
+        setImagem(forca0)
+        setContador(0)
     }
 
     function compararLetra(letra) {
@@ -44,7 +48,10 @@ export default function App() {
                 if(palavraSorteada[i]===letra){
                     palavraSendoPreenchida[i]=letra 
                     console.log(palavraSendoPreenchida)
-                    console.log(palavraRenderizada)      
+                    console.log(palavraRenderizada)    
+                    if(palavraSendoPreenchida.includes("_")===false){
+                        setDesabilitado(true)
+                    }  
                 }
             }
             //palavraSendoPreenchida = palavraSorteada.map((l)=>(letra===l ? letra:" _ "))
@@ -56,15 +63,21 @@ export default function App() {
             console.log(contagemErro)
             let imagemATual= arrayImagens[contagemErro]
             setImagem(imagemATual)
+            if(contagemErro===5){
+                setDesabilitado(true)
+                setPalavraRenderizada(palavraSorteada)
+            }
         }
     }
     console.log(letrasClicadas)
 
     function chutarPlavra() {
         if (palavraCoparacao === input) {
-            console.log("igual")
+            setPalavraRenderizada(palavraSorteada)
+            setDesabilitado(true)
         } else {
-            console.log("diferente")
+            setPalavraRenderizada(palavraSorteada)
+            setDesabilitado(true)
             setImagem(forca6)
         }
         setInput("")
@@ -95,7 +108,7 @@ export default function App() {
                         className="botoes"
                         disabled={(letrasClicadas.includes(l) ? desabilitandoLetrasAlfabeto:desabilitado)}
                         onClick={
-                            () => compararLetra(l)} >{l}</button>))}
+                            () => compararLetra(l)} >{l.toUpperCase()}</button>))}
             </div>
             <div className="chutar-palavra">
                 Já sei a palavra!
