@@ -40,6 +40,16 @@
     font-size: 45px;
 }
 
+.vermelho{
+    color: red;
+    font-weight: bold;
+}
+
+.verde{
+    color: green;
+    font-weight: bold;
+}
+
 .escolher-palavra {
     cursor: pointer;
     border: none;

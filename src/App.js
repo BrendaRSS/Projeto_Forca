@@ -9,17 +9,18 @@ import forca6 from "./image/forca6.png"
 import { useState } from "react"
 
 export default function App() {
-    const [letrasClicadas, setLetrasClicadas]=useState([])
-    const [imagem, setImagem]=useState(forca0)
-    const [contador, setContador]=useState(0)
+    const [ganhouPerdeu, setGanhouPerdeu] = useState("")
+    const [letrasClicadas, setLetrasClicadas] = useState([])
+    const [imagem, setImagem] = useState(forca0)
+    const [contador, setContador] = useState(0)
     const [desabilitado, setDesabilitado] = useState(true)
     const [palavraCoparacao, setPalavraComparacao] = useState("") //palavra formato string
     const [palavraSorteada, setPalavraSorteada] = useState([]) //palavra formato array
     const [palavraRenderizada, setPalavraRenderizada] = useState([]) //palavra escondida "_"
     const [input, setInput] = useState("")
-    let arrayImagens= [forca0,forca1, forca3, forca4, forca5, forca6]
-    let palavraSendoPreenchida= [...palavraRenderizada]
-    const desabilitandoLetrasAlfabeto= true
+    let arrayImagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
+    let palavraSendoPreenchida = [...palavraRenderizada]
+    const desabilitandoLetrasAlfabeto = true
 
     const alfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
         "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -34,38 +35,40 @@ export default function App() {
         setPalavraSorteada(arrayPalavraSorteada)
         let novoArray = arrayPalavraSorteada.map(() => "_")
         setPalavraRenderizada(novoArray)
-        let arrayVazio=[]
+        let arrayVazio = []
         setLetrasClicadas(arrayVazio)
         setImagem(forca0)
         setContador(0)
+        setGanhouPerdeu("")
     }
 
     function compararLetra(letra) {
-        let arrayLetras=[...letrasClicadas,letra]
+        let arrayLetras = [...letrasClicadas, letra]
         setLetrasClicadas(arrayLetras)
-        if(palavraSorteada.includes(letra)){
-            for(let i=0; i<palavraSorteada.length; i++){
-                if(palavraSorteada[i]===letra){
-                    palavraSendoPreenchida[i]=letra 
+        if (palavraSorteada.includes(letra)) {
+            for (let i = 0; i < palavraSorteada.length; i++) {
+                if (palavraSorteada[i] === letra) {
+                    palavraSendoPreenchida[i] = letra
                     console.log(palavraSendoPreenchida)
-                    console.log(palavraRenderizada)    
-                    if(palavraSendoPreenchida.includes("_")===false){
+                    console.log(palavraRenderizada)
+                    if (palavraSendoPreenchida.includes("_") === false) {
                         setDesabilitado(true)
-                    }  
+                        setGanhouPerdeu("verde")
+                    }
                 }
             }
-            //palavraSendoPreenchida = palavraSorteada.map((l)=>(letra===l ? letra:" _ "))
             setPalavraRenderizada(palavraSendoPreenchida)
-        } else{
-            let contagemErro= contador+1
+        } else {
+            let contagemErro = contador + 1
             setContador(contagemErro)
             console.log(contador)
             console.log(contagemErro)
-            let imagemATual= arrayImagens[contagemErro]
+            let imagemATual = arrayImagens[contagemErro]
             setImagem(imagemATual)
-            if(contagemErro===5){
+            if (contagemErro === 6) {
                 setDesabilitado(true)
                 setPalavraRenderizada(palavraSorteada)
+                setGanhouPerdeu("vermelho")
             }
         }
     }
@@ -75,10 +78,12 @@ export default function App() {
         if (palavraCoparacao === input) {
             setPalavraRenderizada(palavraSorteada)
             setDesabilitado(true)
+            setGanhouPerdeu("verde")
         } else {
             setPalavraRenderizada(palavraSorteada)
             setDesabilitado(true)
             setImagem(forca6)
+            setGanhouPerdeu("vermelho")
         }
         setInput("")
 
@@ -88,36 +93,40 @@ export default function App() {
     return (
         <div className="container">
             <div className="imagem-e-botao">
-                <div className="imagem">
-                    <img src={imagem} />
+                <div data-identifier="game-image" className="imagem">
+                    <img alt="Imagem da forca" src={imagem} />
                 </div>
                 <div className="botao-escolher">
                     <div>
-                        <button className="escolher-palavra" onClick={escolherPalavra}>Escolher palavra</button>
+                        <button data-identifier="choose-word" className="escolher-palavra" onClick={escolherPalavra}>Escolher palavra</button>
                     </div>
-                    <div>
+                    <div data-identifier="word">
                         {palavraRenderizada.map(
-                            (letra, index) => (<span className="letras">  {letra}  </span>)
+                            (letra, index) => (<span key={index} className={`letras ${palavraRenderizada===palavraSorteada ? ganhouPerdeu:""}`} >  {letra}  </span>)
                         )}
                     </div>
                 </div>
             </div>
             <div className="teclado">
-                {alfabeto.map((l) => (
+                {alfabeto.map((l, index) => (
                     <button
+                        key={index}
+                        data-identifier="letter"
                         className="botoes"
-                        disabled={(letrasClicadas.includes(l) ? desabilitandoLetrasAlfabeto:desabilitado)}
+                        disabled={(letrasClicadas.includes(l) ? desabilitandoLetrasAlfabeto : desabilitado)}
                         onClick={
                             () => compararLetra(l)} >{l.toUpperCase()}</button>))}
             </div>
             <div className="chutar-palavra">
                 Já sei a palavra!
                 <input
+                    data-identifier="type-guess"
                     className="input-chutar"
                     disabled={desabilitado}
                     onChange={(e) => (setInput(e.target.value))}
                     value={input} />
                 <button
+                    data-identifier="guess-button"
                     className="botao-chutar"
                     disabled={desabilitado}
                     onClick={chutarPlavra}>chutar</button>
