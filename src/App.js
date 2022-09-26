@@ -9,7 +9,7 @@ import forca6 from "./image/forca6.png"
 import { useState } from "react"
 
 export default function App() {
-    const [ganhouPerdeu, setGanhouPerdeu] = useState("")
+    const [ganhouPerdeu, setGanhouPerdeu] = useState("verde")
     const [letrasClicadas, setLetrasClicadas] = useState([])
     const [imagem, setImagem] = useState(forca0)
     const [contador, setContador] = useState(0)
@@ -31,7 +31,8 @@ export default function App() {
         let palavra = palavras[numRandomico]
         console.log("funcao", palavra)
         setPalavraComparacao(palavra)
-        let arrayPalavraSorteada = palavra.split('')
+        let palavraSorteadaSemACento= palavra.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        let arrayPalavraSorteada = palavraSorteadaSemACento.split('')
         setPalavraSorteada(arrayPalavraSorteada)
         let novoArray = arrayPalavraSorteada.map(() => "_")
         setPalavraRenderizada(novoArray)
@@ -102,7 +103,7 @@ export default function App() {
                     </div>
                     <div data-identifier="word">
                         {palavraRenderizada.map(
-                            (letra, index) => (<span key={index} className={`letras ${palavraRenderizada===palavraSorteada ? ganhouPerdeu:""}`} >  {letra}  </span>)
+                            (letra, index) => (<span key={index} className={`letras ${palavraRenderizada===palavraSorteada ? ganhouPerdeu:""} ${palavraSendoPreenchida.includes("_") === false ? ganhouPerdeu:""}`} >  {letra}  </span>)
                         )}
                     </div>
                 </div>
